@@ -1,0 +1,209 @@
+Traceback Problem 1
+===================
+Traceback (most recent call last):
+  File "stack_traces.py", line 36, in run_trace
+    f()
+  File "stack_traces.py", line 45, in <lambda>
+    run_trace(1, lambda: perform_calculation(add, '1', 3))
+  File "stack_traces.py", line 8, in perform_calculation
+    calc(x, y)
+  File "stack_traces.py", line 12, in add
+    return x + y
+TypeError: can only concatenate str (not "int") to str
+
+
+++++++++++++++++
+ANSWER:
+wrong types of data. string can be "+" only with other string and that means concatenation.
+this function does simple adding on numbers so line 45 in stack_traces.py should be like:
+    run_trace(1, lambda: perform_calculation(add, 1, 3))
+or liKe:
+    run_trace(1, lambda: perform_calculation(add, str('1'), 3))
+
+however if you want to concatenate strings by this funkction line 45 should be:
+    run_trace(1, lambda: perform_calculation(add, '1', '3'))
+
+
+
+Traceback Problem 2
+===================
+Traceback (most recent call last):
+  File "stack_traces.py", line 36, in run_trace
+    f()
+  File "stack_traces.py", line 46, in <lambda>
+    run_trace(2, lambda: perform_calculation(add, 7, '3'))
+  File "stack_traces.py", line 8, in perform_calculation
+    calc(x, y)
+  File "stack_traces.py", line 12, in add
+    return x + y
+TypeError: unsupported operand type(s) for +: 'int' and 'str'
+
+++++++++++++++++
+ANSWER:
+the same problem above but for second argument. line 46 should look like:
+  run_trace(2, lambda: perform_calculation(add, 7, 3))
+
+
+
+Traceback Problem 3
+===================
+Traceback (most recent call last):
+  File "stack_traces.py", line 36, in run_trace
+    f()
+  File "stack_traces.py", line 47, in <lambda>
+    run_trace(3, lambda: perform_calculation(mult, '3', '3'))
+  File "stack_traces.py", line 8, in perform_calculation
+    calc(x, y)
+  File "stack_traces.py", line 15, in mult
+    return x * y
+TypeError: can't multiply sequence by non-int of type 'str'
+
+
+++++++++++++++++
+ANSWER:
+"*" operator can be used for simple multiplication if we have two number like arguments
+"*" operator can be used for multiplication of list or strings for example: "aa" * 3 will return "aaaaaa"
+there is no way to multiply two lists in python. i suppose that code should run simple multiplication so line 47 should be:
+  perform_calculation(mult, 3, 3))
+
+
+
+
+Traceback Problem 4
+===================
+Traceback (most recent call last):
+  File "stack_traces.py", line 36, in run_trace
+    f()
+  File "stack_traces.py", line 48, in <lambda>
+    run_trace(4, lambda: perform_calculation(mult, [4], [3]))
+  File "stack_traces.py", line 8, in perform_calculation
+    calc(x, y)
+  File "stack_traces.py", line 15, in mult
+    return x * y
+TypeError: can't multiply sequence by non-int of type 'list'
+
+
+++++++++++++++++
+ANSWER:
+same problem as above but now i suppose it should be list multiplication. we can fix it by changing 48 line into:
+  run_trace(4, lambda: perform_calculation(mult, [4], [3][0]))
+or:
+  run_trace(4, lambda: perform_calculation(mult, [4], 3))
+
+
+
+Traceback Problem 5
+===================
+Traceback (most recent call last):
+  File "stack_traces.py", line 36, in run_trace
+    f()
+  File "stack_traces.py", line 49, in <lambda>
+    run_trace(5, lambda: perform_calculation(innoc, '1', 3))
+  File "stack_traces.py", line 8, in perform_calculation
+    calc(x, y)
+  File "stack_traces.py", line 22, in innoc
+    spelunk()
+  File "stack_traces.py", line 21, in spelunk
+    raise ValueError('Invalid')
+ValueError: Invalid
+
+
+++++++++++++++++
+ANSWER:
+there is no such action in this program should change it for adding for example:
+  run_trace(5, lambda: perform_calculation(add, 1, 3))
+or simple catch this exception and evaluate error handling
+
+
+
+
+Traceback Problem 6
+===================
+Traceback (most recent call last):
+  File "stack_traces.py", line 36, in run_trace
+    f()
+  File "stack_traces.py", line 50, in <lambda>
+    run_trace(6, lambda: comp_calc([1, 2, 3], 1, add))
+  File "stack_traces.py", line 30, in comp_calc
+    return [perform_calculation(calc, x_i, y_i) for x_i, y_i in zip(x, y)]
+TypeError: zip argument #2 must support iteration
+
+
+++++++++++++++++
+ANSWER:
+zip function takes two iterable arguments and if they different size output will be as long as shorter argument.
+i suppose that this code should add 1 to every elmenet of list. easiest wayto to fix is change line 50 for:
+  run_trace(6, lambda: comp_calc([1, 2, 3], [1, 1, 1], add))
+
+
+
+
+Traceback Problem 7
+===================
+Traceback (most recent call last):
+  File "stack_traces.py", line 36, in run_trace
+    f()
+  File "stack_traces.py", line 51, in <lambda>
+    run_trace(7, lambda: comp_calc([1, 2, [3]], [4, 5, 6], add))
+  File "stack_traces.py", line 30, in comp_calc
+    return [perform_calculation(calc, x_i, y_i) for x_i, y_i in zip(x, y)]
+  File "stack_traces.py", line 30, in <listcomp>
+    return [perform_calculation(calc, x_i, y_i) for x_i, y_i in zip(x, y)]
+  File "stack_traces.py", line 8, in perform_calculation
+    calc(x, y)
+  File "stack_traces.py", line 12, in add
+    return x + y
+TypeError: can only concatenate list (not "int") to list
+
+
+++++++++++++++++
+ANSWER:
+adding [3] and 6 is not allowed. line 51 should look like:
+  run_trace(7, lambda: comp_calc([1, 2, 3], [4, 5, 6], add))
+
+
+
+
+Traceback Problem 8
+===================
+Traceback (most recent call last):
+  File "stack_traces.py", line 36, in run_trace
+    f()
+  File "stack_traces.py", line 52, in <lambda>
+    run_trace(8, lambda: calc_dict({'one': 1, 'two': '2'}, 'one', 'two', add))
+  File "stack_traces.py", line 26, in calc_dict
+    return perform_calculation(calc, d[k1], d[k2])
+  File "stack_traces.py", line 8, in perform_calculation
+    calc(x, y)
+  File "stack_traces.py", line 12, in add
+    return x + y
+TypeError: unsupported operand type(s) for +: 'int' and 'str'
+
+
+++++++++++++++++
+ANSWER:
+adding 1 and '2' is not allowed. to fix change line 52:
+  run_trace(8, lambda: calc_dict({'one': 1, 'two': '2'}, 'one', 'two', add))
+
+
+
+
+Traceback Problem 9
+===================
+Traceback (most recent call last):
+  File "stack_traces.py", line 36, in run_trace
+    f()
+  File "stack_traces.py", line 53, in <lambda>
+    run_trace(9, lambda: calc_dict({}, 'one', 'two', add))
+  File "stack_traces.py", line 26, in calc_dict
+    return perform_calculation(calc, d[k1], d[k2])
+KeyError: 'one'
+
+
+++++++++++++++++
+ANSWER:
+no values in empty dict. should fill it in 53 line like:
+
+  run_trace(9, lambda: calc_dict({'one': 10, 'two': '20'}, 'one', 'two', add))
+
+to receive 10 + 20
