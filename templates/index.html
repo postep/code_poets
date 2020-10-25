@@ -1,0 +1,12 @@
+<!doctype html>
+<title>Upload new File</title>
+<h1>Upload new File. This service will check Benford assertion in columns.</h1>
+<div>
+    Column will not be Benford distributed unless 10 correct written numbers are detected in column.
+    Negative numbers are allowed. Columns have to be separated by tab sign.
+    Max. 10 columns in file are allowed because of 10 colors in palette.
+</div>
+<form method=post enctype=multipart/form-data>
+  <input type=file name=file>
+  <input type=submit value=Upload>
+</form>

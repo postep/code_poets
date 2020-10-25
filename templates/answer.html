@@ -1,10 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Is it benford?</title>
 </head>
 <body>
-$END$
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<h1>Is it Benford distribution?</h1>
+<div>This detection was counting leading ones in every column of uploaded file. If count was in range <25, 35>% then we have sucess.</div>
+
+    {% if resp.correct_insertion %}
+    <div>This file was proper because in every column were same amount of records.</div>
+    {% else %}
+    <div>This file had different count of numbers in every column!</div>
+    {% endif %}
+
+{%for i in range(0, cols_len)%}
+    {% if resp.benford_detect[i] %}
+    <div>We have about 30% of ones in {{ i+1 }} column. This is Benford distribution!.</div>
+    {% else %}
+    <div>We do not have Benford distribution in {{ i+1 }} column.</div>
+    {% endif %}
+{%endfor%}
+<canvas id="myChart" width="200" height="200"></canvas>
+<script>
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        datasets: [
+        {%for i in range(0, cols_len)%}
+            {label: 'Column {{ i+1 }}',
+            data: {{ resp.columns_distribution[i] }},
+            type: "line",
+                backgroundColor: '{{ color_palette[i] }}',
+                borderColor: '{{ color_palette[i] }}',
+            },
+        {%endfor%}
+        ],
+        labels: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+</script>
+
 </body>
 </html>
