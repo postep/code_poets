@@ -26,7 +26,6 @@ def hello_world():
         if file:
             filename = secure_filename(file.filename)
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            return filepath
             resp = detect_benford(filepath)
             # file.save(filepath)
 
