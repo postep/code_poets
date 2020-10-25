@@ -16,6 +16,7 @@ def detect_benford(filename):
         Lines = fp.readlines()
         for line in Lines:
             if first_line:
+                return line
                 first_line = False
                 continue
 

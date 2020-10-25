@@ -3,7 +3,7 @@ from benford import detect_benford
 import json
 
 app = Flask(__name__)
-UPLOAD_FOLDER = '/tmp'
+UPLOAD_FOLDER = '/var/www/tmp'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 import os
@@ -26,9 +26,9 @@ def hello_world():
         if file:
             filename = secure_filename(file.filename)
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            return filepath
             resp = detect_benford(filepath)
-            print(resp)
-            file.save(filepath)
+            # file.save(filepath)
 
             return redirect(url_for('answer',
                                     analisys=json.dumps(resp)))
