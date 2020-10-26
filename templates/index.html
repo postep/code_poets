@@ -1,4 +1,5 @@
 <!doctype html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <title>Upload new File</title>
 <h1>This service will check Benford assertion in columns.</h1>
 <div>
@@ -6,7 +7,25 @@
     Negative numbers are allowed. Columns have to be separated by tab sign.
     Max. 10 columns in file are allowed because of 10 colors in palette.
 </div>
-<form method=post enctype=multipart/form-data>
-  <input type=file name=file>
+<form method=post enctype=multipart/form-data name="inform">
+  <input type=file name=file id=upload>
+    <input type="hidden" id="filecontent" name="filecontent" value="3487">
   <input type=submit value=Upload>
 </form>
+
+<script>
+    document.getElementById('upload').addEventListener('change', readFileAsString)
+    function readFileAsString() {
+    var files = this.files;
+    if (files.length === 0) {
+        console.log('No file is selected');
+        return;
+    }
+
+    var reader = new FileReader();
+    reader.onload = function(event) {
+        document.inform.filecontent.value = event.target.result;
+    };
+    reader.readAsText(files[0]);
+}
+</script>

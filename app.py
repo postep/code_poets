@@ -3,7 +3,7 @@ from benford import detect_benford
 import json
 
 app = Flask(__name__)
-UPLOAD_FOLDER = '/var/www/tmp'
+UPLOAD_FOLDER = '/tmp'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 import os
@@ -14,19 +14,13 @@ from werkzeug.utils import secure_filename
 def hello_world():
     if request.method == 'POST':
         # check if the post request has the file part
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
-        file = request.files['file']
-        # if user does not select file, browser also
+        file = request.form.get("filecontent")# if user does not select file, browser also
         # submit an empty part without filename
-        if file.filename == '':
+        if not file:
             flash('No selected file')
             return redirect(request.url)
-        if file:
-            filename = secure_filename(file.filename)
-            filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-            resp = detect_benford(filepath)
+        else:
+            resp = detect_benford(file)
             # file.save(filepath)
 
             return redirect(url_for('answer',

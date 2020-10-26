@@ -10,9 +10,9 @@
 <div>This detection was counting leading ones in every column of uploaded file. If count was in range <25, 35>% then we have sucess.</div>
 
     {% if resp.correct_insertion %}
-    <div>This file was proper because in every column were same amount of records.</div>
+    <div>This file was proper because in each column were same amount of records.</div>
     {% else %}
-    <div>This file had different count of numbers in every column!</div>
+    <div>This file had different count of numbers in columns!</div>
     {% endif %}
 
 {%for i in range(0, cols_len)%}
