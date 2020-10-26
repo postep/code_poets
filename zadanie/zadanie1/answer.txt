@@ -1,0 +1,10 @@
+It is supposed that given data describes Trap Store.
+
+Trap Store has many products from many suppliers and warehouses.
+
+To implement such db system we need to deploy docker components:
+1. tiangolo/uwsgi-nginx-flask and implement flask app on it to allow user to make interaction with db
+    flask could be mixed with jqery and sencha
+2. postgres to run database on
+    detailed description available in file db.png
+
